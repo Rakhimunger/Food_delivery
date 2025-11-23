@@ -14,7 +14,7 @@ const Fooditem = ({ name, price, description, image }) => {
 
       <div className="food-item-info p-4">
         <div className="food-item-name-rating flex justify-between items-center mb-2">
-          <p className=" font-semibold text-gray-800 text-4xl">{name}</p>
+          <p className="text-lg font-semibold text-gray-800 ">{name}</p>
           <img className="w-16" src={assets.rating_stars} alt="Rating Stars" />
         </div>
 

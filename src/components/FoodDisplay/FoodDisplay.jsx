@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../context/StoreContext.jsx";
-
-import Fooditem from "../FoodItem/FoodItem.jsx";
+import FoodItem from "../../components/FoodItem/FoodItem.jsx";
 
 const FoodDisplay = () => {
   const { food_list } = useContext(StoreContext);
@@ -12,7 +11,7 @@ const FoodDisplay = () => {
 
       <div className="grid grid-cols-4 gap-6">
         {food_list.map((item, index) => (
-          <Fooditem
+          <FoodItem
             key={index}
             id={item.id}
             name={item.name}
