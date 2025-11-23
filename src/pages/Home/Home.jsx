@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import Exploremenu from "../../components/ExploreMenu/ExploreMenu";
-// import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
+import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
@@ -9,7 +9,7 @@ const Home = () => {
     <div>
       <Header />
       <Exploremenu category={category} setCategory={setCategory} />
-      {/* <FoodDisplay category={category} /> */}
+      <FoodDisplay category={category} />
     </div>
   );
 };
