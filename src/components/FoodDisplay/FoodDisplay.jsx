@@ -1,68 +1,54 @@
 import React, { useContext, useState } from "react";
-import { StoreContext } from "../context/StoreContext.jsx";
-import FoodItem from "../../components/FoodItem/FoodItem.jsx";
+import { StoreContext } from "../context/StoreContext";
+import FoodItem from "../../components/FoodItem/FoodItem";
 
 const FoodDisplay = () => {
   const { food_list } = useContext(StoreContext);
-
-  // slider state for mobile
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextSlide = () => {
+  const nextSlide = () =>
     setCurrentIndex((prev) => (prev + 1) % food_list.length);
-  };
 
-  const prevSlide = () => {
+  const prevSlide = () =>
     setCurrentIndex((prev) => (prev === 0 ? food_list.length - 1 : prev - 1));
-  };
 
   return (
-    <div className="food-display mx-10">
-      {/* Heading */}
-      <h2 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl my-6 leading-tight">
+    <div className="mx-10">
+      <h2 className="text-center text-4xl font-bold my-6">
         Top dishes near you
       </h2>
 
-      {/* ----------- DESKTOP GRID (768px) ----------- */}
+      {/* DESKTOP */}
       <div className="hidden md:grid grid-cols-4 gap-6">
-        {food_list.map((item, index) => (
+        {food_list.map((item) => (
           <FoodItem
-            key={index}
-            id={item.id}
+            key={item._id} // ✅ IMPORTANT
+            id={item._id} // ✅ IMPORTANT
             name={item.name}
-            description={item.description}
             price={item.price}
+            description={item.description}
             image={item.image}
           />
         ))}
       </div>
 
-      {/* ----------- MOBILE SLIDER (< 768px) ----------- */}
-      <div className="md:hidden relative w-full flex justify-center items-center mt-6">
-        {/* Left Button */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-2 bg-black text-white px-3 py-2 rounded-full opacity-70"
-        >
+      {/* MOBILE */}
+      <div className="md:hidden relative flex justify-center mt-6">
+        <button onClick={prevSlide} className="absolute left-2">
           ❮
         </button>
 
-        {/* Single Slide */}
         <div className="w-72">
           <FoodItem
-            id={food_list[currentIndex].id}
+            id={food_list[currentIndex]._id} // ✅
             name={food_list[currentIndex].name}
-            description={food_list[currentIndex].description}
             price={food_list[currentIndex].price}
+            description={food_list[currentIndex].description}
             image={food_list[currentIndex].image}
           />
         </div>
 
-        {/* Right Button */}
-        <button
-          onClick={nextSlide}
-          className="absolute right-2 bg-black text-white px-3 py-2 rounded-full opacity-70"
-        >
+        <button onClick={nextSlide} className="absolute right-2">
           ❯
         </button>
       </div>

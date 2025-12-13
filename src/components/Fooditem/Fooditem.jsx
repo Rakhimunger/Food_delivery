@@ -1,60 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { StoreContext } from "../context/StoreContext";
 import { assets } from "../../assets/assets";
 
-const Fooditem = ({ name, price, description, image }) => {
-  const [itemCount, setItemCount] = useState(0);
+const FoodItem = ({ id, name, price, description, image }) => {
+  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   return (
-    <div className="food-item bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-      <div className="food-item-img-container relative">
-        <img
-          className="food-item-image w-full h-48 object-cover"
-          src={image}
-          alt={`Image of ${name}`}
-        />
+    <div className="bg-white shadow-md rounded-lg">
+      <div className="relative">
+        <img src={image} alt={name} className="w-full h-48 object-cover" />
 
-        {/* Add / Remove Buttons */}
-        {!itemCount ? (
+        {!cartItems[id] ? (
           <img
-            className="add absolute bottom-2 right-2 cursor-pointer"
-            onClick={() => setItemCount((prev) => prev + 1)}
             src={assets.add_icon_white}
             alt="add"
+            className="absolute bottom-2 right-2 cursor-pointer"
+            onClick={() => addToCart(id)}
           />
         ) : (
-          <div className="absolute bottom-2 right-2 bg-white px-3 py-1 rounded-full flex items-center gap-2 shadow">
+          <div className="absolute bottom-2 right-2 bg-white px-3 py-1 rounded-full flex gap-2 shadow">
             <img
-              onClick={() => setItemCount((prev) => prev - 1)}
               src={assets.remove_icon_red}
               alt="remove"
               className="cursor-pointer"
+              onClick={() => removeFromCart(id)}
             />
-
-            <p className="font-semibold">{itemCount}</p>
-
+            <p>{cartItems[id]}</p>
             <img
-              onClick={() => setItemCount((prev) => prev + 1)}
               src={assets.add_icon_green}
               alt="add"
               className="cursor-pointer"
+              onClick={() => addToCart(id)}
             />
           </div>
         )}
       </div>
 
-      {/* Food Info */}
-      <div className="food-item-info p-4">
-        <div className="food-item-name-rating flex justify-between items-center mb-2">
-          <p className="text-lg font-semibold text-gray-800">{name}</p>
-          <img className="w-24" src={assets.rating_starts} alt="Rating Stars" />
-        </div>
-
-        <p className="text-sm text-gray-600 mb-4">{description}</p>
-
-        <p className="text-lg font-bold text-green-600">${price.toFixed(2)}</p>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">{name}</h3>
+        <p className="text-gray-600 text-sm">{description}</p>
+        <p className="text-green-600 font-bold">${price.toFixed(2)}</p>
       </div>
     </div>
   );
 };
 
-export default Fooditem;
+export default FoodItem;
