@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/Header";
-import Exploremenu from "../../components/ExploreMenu/ExploreMenu";
+import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 
 const Home = () => {
@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <Exploremenu category={category} setCategory={setCategory} />
+      <ExploreMenu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />
     </div>
   );
